@@ -72,6 +72,7 @@ def parse_human_blob(filename = None,
         sorted_ids = sorted(dict_ids, key = lambda id:dict_ids[id], reverse = True)
         human_ids = sorted_ids[0:human_count]
         human_list = [tp for tp in full_blob_list if tp[1]['id'] in human_ids]
+        parsed = (sorted_ids[0:human_count], human_list)
         # status output
         print 'file name: %s' % (filename)
         print 'total blob count: %d' % (len(full_blob_list))
@@ -79,8 +80,8 @@ def parse_human_blob(filename = None,
         # serialize to pickle
         if pickled_file != None:
             with open(pickled_file + '.pickle', 'wb') as handle:
-                pickle.dump((sorted_ids[0:human_count], human_list), handle, protocol=pickle.HIGHEST_PROTOCOL)
-        return human_list
+                pickle.dump(parsed, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        return parsed
     except TypeError:
         print '[Error] parse_human_blob: no blob log file to read.'
         return None
@@ -100,91 +101,91 @@ if __name__ == '__main__':
     blob_logs_directory = './blob_logs/'
     blob_pickled_directory = './blob_pickled/'
 
-    single1_list = parse_human_blob(filename = blob_logs_directory + 'single_1.log',
-                                    start_timestamp = datetime(2017, 4, 28, 16, 01, 52, 0),
-                                    end_timestamp = datetime(2017, 4, 28, 16, 07, 20, 0),
-                                    human_count = 1,
-                                    pickled_file = blob_pickled_directory + 'single_1_human_blobs')
+    single1_ids, single1_list = parse_human_blob(filename = blob_logs_directory + 'single_1.log',
+                                                 start_timestamp = datetime(2017, 4, 28, 16, 01, 52, 0),
+                                                 end_timestamp = datetime(2017, 4, 28, 16, 07, 20, 0),
+                                                 human_count = 1,
+                                                 pickled_file = blob_pickled_directory + 'single_1_human_blobs')
 
     print "start time: {}".format(single1_list[0][0])
     print "end time:   {}".format(single1_list[-1][0])
     print delimiter
 
-    single2_list = parse_human_blob(filename = blob_logs_directory + 'single_2.log',
-                                    start_timestamp = datetime(2017, 4, 28, 16, 12, 40, 0),
-                                    end_timestamp = datetime(2017, 4, 28, 16, 18, 12, 0),
-                                    human_count = 1,
-                                    pickled_file = blob_pickled_directory + 'single_2_human_blobs')
+    single2_ids, single2_list = parse_human_blob(filename = blob_logs_directory + 'single_2.log',
+                                                 start_timestamp = datetime(2017, 4, 28, 16, 12, 40, 0),
+                                                 end_timestamp = datetime(2017, 4, 28, 16, 18, 12, 0),
+                                                 human_count = 1,
+                                                 pickled_file = blob_pickled_directory + 'single_2_human_blobs')
 
     print "start time: {}".format(single2_list[0][0])
     print "end time:   {}".format(single2_list[-1][0])
     print delimiter
 
-    single3_list = parse_human_blob(filename = blob_logs_directory + 'single_3.log',
-                                    start_timestamp = datetime(2017, 4, 28, 16, 35, 27, 0),
-                                    end_timestamp = datetime(2017, 4, 28, 16, 41, 05, 0),
-                                    human_count = 1,
-                                    pickled_file = blob_pickled_directory + 'single_3_human_blobs')
+    single3_ids, single3_list = parse_human_blob(filename = blob_logs_directory + 'single_3.log',
+                                                 start_timestamp = datetime(2017, 4, 28, 16, 35, 27, 0),
+                                                 end_timestamp = datetime(2017, 4, 28, 16, 41, 05, 0),
+                                                 human_count = 1,
+                                                 pickled_file = blob_pickled_directory + 'single_3_human_blobs')
 
     print "start time: {}".format(single3_list[0][0])
     print "end time:   {}".format(single3_list[-1][0])
     print delimiter
 
-    single4_list = parse_human_blob(filename = blob_logs_directory + 'single_4.log',
-                                    start_timestamp = datetime(2017, 4, 28, 16, 44, 28, 0),
-                                    end_timestamp = datetime(2017, 4, 28, 16, 50, 05, 0),
-                                    human_count = 1,
-                                    pickled_file = blob_pickled_directory + 'single_4_human_blobs')
+    single4_ids, single4_list = parse_human_blob(filename = blob_logs_directory + 'single_4.log',
+                                                 start_timestamp = datetime(2017, 4, 28, 16, 44, 28, 0),
+                                                 end_timestamp = datetime(2017, 4, 28, 16, 50, 05, 0),
+                                                 human_count = 1,
+                                                 pickled_file = blob_pickled_directory + 'single_4_human_blobs')
 
     print "start time: {}".format(single4_list[0][0])
     print "end time:   {}".format(single4_list[-1][0])
     print delimiter
 
-    single5_list = parse_human_blob(filename = blob_logs_directory + 'single_5.log',
-                                    start_timestamp = datetime(2017, 4, 28, 17, 13, 13, 0),
-                                    end_timestamp = datetime(2017, 4, 28, 17, 18, 45, 0),
-                                    human_count = 1,
-                                    pickled_file = blob_pickled_directory + 'single_5_human_blobs')
+    single5_ids, single5_list = parse_human_blob(filename = blob_logs_directory + 'single_5.log',
+                                                 start_timestamp = datetime(2017, 4, 28, 17, 13, 13, 0),
+                                                 end_timestamp = datetime(2017, 4, 28, 17, 18, 45, 0),
+                                                 human_count = 1,
+                                                 pickled_file = blob_pickled_directory + 'single_5_human_blobs')
 
     print "start time: {}".format(single5_list[0][0])
     print "end time:   {}".format(single5_list[-1][0])
     print delimiter
 
-    single6_list = parse_human_blob(filename = blob_logs_directory + 'single_6.log',
-                                    start_timestamp = datetime(2017, 4, 28, 17, 21, 55, 0),
-                                    end_timestamp = datetime(2017, 4, 28, 17, 27, 26, 0),
-                                    human_count = 1,
-                                    pickled_file = blob_pickled_directory + 'single_6_human_blobs')
+    single6_ids, single6_list = parse_human_blob(filename = blob_logs_directory + 'single_6.log',
+                                                 start_timestamp = datetime(2017, 4, 28, 17, 21, 55, 0),
+                                                 end_timestamp = datetime(2017, 4, 28, 17, 27, 26, 0),
+                                                 human_count = 1,
+                                                 pickled_file = blob_pickled_directory + 'single_6_human_blobs')
 
     print "start time: {}".format(single6_list[0][0])
     print "end time:   {}".format(single6_list[-1][0])
     print delimiter
 
-    dual1_list = parse_human_blob(filename = blob_logs_directory + 'dual_1.log',
-                                  start_timestamp = datetime(2017, 4, 28, 16, 21, 19, 0),
-                                  end_timestamp = datetime(2017, 4, 28, 16, 25, 34, 0),
-                                  human_count = 2,
-                                  pickled_file = blob_pickled_directory + 'dual_1_human_blobs')
+    dual1_ids, dual1_list = parse_human_blob(filename = blob_logs_directory + 'dual_1.log',
+                                             start_timestamp = datetime(2017, 4, 28, 16, 21, 19, 0),
+                                             end_timestamp = datetime(2017, 4, 28, 16, 25, 34, 0),
+                                             human_count = 2,
+                                             pickled_file = blob_pickled_directory + 'dual_1_human_blobs')
 
     print "start time: {}".format(dual1_list[0][0])
     print "end time:   {}".format(dual1_list[-1][0])
     print delimiter
 
-    dual2_list = parse_human_blob(filename = blob_logs_directory + 'dual_2.log',
-                                  start_timestamp = datetime(2017, 4, 28, 16, 52, 28, 0),
-                                  end_timestamp = datetime(2017, 4, 28, 16, 57, 24, 0),
-                                  human_count = 2,
-                                  pickled_file = blob_pickled_directory + 'dual_2_human_blobs')
+    dual2_ids, dual2_list = parse_human_blob(filename = blob_logs_directory + 'dual_2.log',
+                                             start_timestamp = datetime(2017, 4, 28, 16, 52, 28, 0),
+                                             end_timestamp = datetime(2017, 4, 28, 16, 57, 24, 0),
+                                             human_count = 2,
+                                             pickled_file = blob_pickled_directory + 'dual_2_human_blobs')
 
     print "start time: {}".format(dual2_list[0][0])
     print "end time:   {}".format(dual2_list[-1][0])
     print delimiter
 
-    dual3_list = parse_human_blob(filename = blob_logs_directory + 'dual_3.log',
-                                  start_timestamp = datetime(2017, 4, 28, 17, 30, 36, 0),
-                                  end_timestamp = datetime(2017, 4, 28, 17, 34, 57, 0),
-                                  human_count = 2,
-                                  pickled_file = blob_pickled_directory + 'dual_3_human_blobs')
+    dual3_ids, dual3_list = parse_human_blob(filename = blob_logs_directory + 'dual_3.log',
+                                             start_timestamp = datetime(2017, 4, 28, 17, 30, 36, 0),
+                                             end_timestamp = datetime(2017, 4, 28, 17, 34, 57, 0),
+                                             human_count = 2,
+                                             pickled_file = blob_pickled_directory + 'dual_3_human_blobs')
 
     print "start time: {}".format(dual3_list[0][0])
     print "end time:   {}".format(dual3_list[-1][0])
