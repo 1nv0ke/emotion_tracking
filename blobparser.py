@@ -79,7 +79,7 @@ def parse_human_blob(filename = None,
         # serialize to pickle
         if pickled_file != None:
             with open(pickled_file + '.pickle', 'wb') as handle:
-                pickle.dump(human_list, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                pickle.dump((sorted_ids[0:human_count], human_list), handle, protocol=pickle.HIGHEST_PROTOCOL)
         return human_list
     except TypeError:
         print '[Error] parse_human_blob: no blob log file to read.'
