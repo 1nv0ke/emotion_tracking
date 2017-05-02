@@ -6,13 +6,14 @@ import time
 import sched
 import json
 from socketIO_client import SocketIO
+from thermalblobfusion import thermal_fusion
 
 # _________________________________________________________________________________________________
 
 SOCKETIO_IP = 'http://97.107.129.81'
 SOCKETIO_PORT = 8888
 
-INITIAL_DELAY_SECONDS = 3
+INITIAL_DELAY_SECONDS = 1
 BLOB_AGE_TO_EVENT_TYPE = {
     'OLD': 'update',
     'NEW': 'new',
@@ -21,7 +22,7 @@ BLOB_AGE_TO_EVENT_TYPE = {
 
 # _________________________________________________________________________________________________
 
-def schedule_send(filename = None, ids = None, blob_list = None):
+def schedule_send(filename=None, blob_list=None):
 
     def send_next_blob(blob):
         if blob['age'] in BLOB_AGE_TO_EVENT_TYPE:
@@ -29,17 +30,18 @@ def schedule_send(filename = None, ids = None, blob_list = None):
             socket.emit(eventType, blob)
             print blob
 
-    try:
-        with open(filename, 'rb') as handle:
-            ids, blob_list = pickle.load(handle)
-    except TypeError:
-        print '[Error] schedule_send: no blob pickled file to read.'
-        return
-    except IOError:
-        print '[Error] schedule_send: failed to read blob pickled file.'
-        return
+    if filename != None:
+        try:
+            with open(filename, 'rb') as handle:
+                ids, blob_list = pickle.load(handle)
+        except IOError:
+            print '[Error] schedule_send: failed to read blob pickled file.'
+            return
+    elif blob_list == None:
+        print '[Error] schedule_send: neither file or blob list specified.'
 
     if len(blob_list) == 0:
+        print '[Error] schedule_send: no blob to send.'
         return
 
     socket = SocketIO(SOCKETIO_IP, port=SOCKETIO_PORT)
@@ -55,6 +57,10 @@ def schedule_send(filename = None, ids = None, blob_list = None):
 # _________________________________________________________________________________________________
 
 if __name__ == '__main__':
-    schedule_send(filename = './blob_pickled/single_1_human_blobs.pickle')
+    schedule_send(
+        blob_list=thermal_fusion(
+            blob_filename='./blob_pickled/single_1_human_blobs.pickle'
+        )
+    )
 
 # _________________________________________________________________________________________________
