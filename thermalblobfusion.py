@@ -40,17 +40,6 @@ def thermal_fusion(blob_filename=None,
         print '[Error] thermal_fusion: no thermal to process.'
         return []
 
-    """
-    thermal_size = 5 # len(thermal_list)
-    thermal_list = []
-    for i in range(thermal_size):
-        t1 = blob_list[2*i][0]
-        t2 = blob_list[2*i+1][0]
-        ts = t1 + (t2 - t1) / 2
-        thermal_list.append((ts, 12052, random.randint(28, 35)))
-    print thermal_list
-    """
-
     blob_id_dict = dict(zip(ids, [[]] * len(ids)))
     for ts, blob in blob_list:
         blob_id_dict[blob[u'id']].append((ts, blob))
