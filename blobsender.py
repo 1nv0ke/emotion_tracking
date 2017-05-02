@@ -59,7 +59,8 @@ def schedule_send(filename=None, blob_list=None):
 if __name__ == '__main__':
     schedule_send(
         blob_list=thermal_fusion(
-            blob_filename='./blob_pickled/single_1_human_blobs.pickle'
+            blob_filename='./blob_pickled/single_1_human_blobs.pickle',
+            thermal_filename='./thermal_pickled/single_1_thermal.pickle'
         )
     )
 

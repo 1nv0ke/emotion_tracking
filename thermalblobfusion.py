@@ -52,8 +52,8 @@ def thermal_fusion(blob_filename=None,
     """
 
     blob_id_dict = dict(zip(ids, [[]] * len(ids)))
-    for ts, blob in blob_list[:10]:
-        blob_id_dict[blob['id']].append((ts, blob))
+    for ts, blob in blob_list:
+        blob_id_dict[blob[u'id']].append((ts, blob))
 
     thermal_id_dict = dict(zip(ids, [[]] * len(ids)))
     for ts, id, tmp in thermal_list:
@@ -66,23 +66,23 @@ def thermal_fusion(blob_filename=None,
         curr = 0
         prev_ts, prev_tmp = thermal_id_dict[id][0]
         while curr < len(blob_id_dict[id]) and blob_id_dict[id][curr][0] <= prev_ts:
-            blob_id_dict[id][curr][1]['temperature'] = prev_tmp
+            blob_id_dict[id][curr][1][u'temperature'] = prev_tmp
             curr += 1
-        curr -= 1
 
         # in-assign
         for curr_ts, curr_tmp in thermal_id_dict[id][1:]:
+            if curr_ts == prev_ts:
+                continue
             while curr < len(blob_id_dict[id]) and blob_id_dict[id][curr][0] <= curr_ts:
                 weight = (blob_id_dict[id][curr][0] - prev_ts).total_seconds() / \
                          (curr_ts - prev_ts).total_seconds()
-                blob_id_dict[id][curr][1]['temperature'] = prev_tmp + (curr_tmp - prev_tmp) * weight
+                blob_id_dict[id][curr][1][u'temperature'] = prev_tmp + (curr_tmp - prev_tmp) * weight
                 curr += 1
-            curr -= 1
             prev_ts, prev_tmp = curr_ts, curr_tmp
 
         # post-assign
         while curr < len(blob_id_dict[id]):
-            blob_id_dict[id][curr][1]['temperature'] = prev_tmp
+            blob_id_dict[id][curr][1][u'temperature'] = prev_tmp
             curr += 1
 
         fusion_list += blob_id_dict[id]
@@ -95,7 +95,7 @@ if __name__ == '__main__':
 
     blob_list = thermal_fusion(
         blob_filename='./blob_pickled/single_1_human_blobs.pickle',
-        thermal_filename=None
+        thermal_filename='./thermal_pickled/single_1_thermal.pickle'
     )
 
     #for ts, blob in blob_list:
