@@ -2,6 +2,7 @@
 # _________________________________________________________________________________________________
 
 from datetime import datetime
+import sys
 import pickle
 
 # _________________________________________________________________________________________________
@@ -16,6 +17,7 @@ IMAGE_FILE_SUFFIX = '.jpg'
 FILE_IRB_TIMESTAMP_OFFSET = 0x07F8
 FILE_IRB_TIMESTAMP_LENGTH = 5
 
+# Don't forget to change the date here!
 CURRENT_YEAR = 2017
 CURRENT_MONTH = 4
 CURRNET_DAY = 28
@@ -36,6 +38,10 @@ def parse_timestamp(timestamp):
     curr_sec = curr_ms / 1000
     curr_ms -= curr_sec * 1000
     curr_us = curr_ms * 1000
+    
+    # We got negative hour for some file, while numbers in other field are correct
+    # So we added this line to fix it
+    curr_hour = curr_hour % 24
 
     return datetime(CURRENT_YEAR, CURRENT_MONTH, CURRNET_DAY, curr_hour, curr_min, curr_sec, curr_us)
 
@@ -63,7 +69,7 @@ def parse_irb_to_csv(irb_path = '',
 
     while True:
         try:
-            irb_file_name = IRB_FILE_PREFIX + str(irb_file_num).zfill(IRB_FILE_NUM_WIDTH) + IRB_FILE_SUFFIX
+            irb_file_name = irb_path + IRB_FILE_PREFIX + str(irb_file_num).zfill(IRB_FILE_NUM_WIDTH) + IRB_FILE_SUFFIX
             timestamp = get_timestamp_from_irb_file(irb_file_name)
         except IOError:
             break
@@ -75,7 +81,7 @@ def parse_irb_to_csv(irb_path = '',
     print "%d timestamp(s) extracted." % (irb_file_num - IRB_FILE_NUM_START)
 
     if pickled_file != None:
-        with open(pickled_file + '.pickle', 'wb') as handle:
+        with open(pickled_file, 'wb') as handle:
             pickle.dump(parsed, handle, protocol = pickle.HIGHEST_PROTOCOL)
     
     return parsed
@@ -83,9 +89,9 @@ def parse_irb_to_csv(irb_path = '',
 # _________________________________________________________________________________________________
 
 if __name__ == '__main__':
-    print parse_irb_to_csv(irb_path= '',
-                           img_file_prefix = 'seq_04212017_',
-                           img_file_num_start = 240,
-                           pickled_file = 'timestamps')
+    print parse_irb_to_csv(irb_path = sys.argv[1],
+                           img_file_prefix = sys.argv[2],
+                           img_file_num_start = int(sys.argv[3]),
+                           pickled_file = sys.argv[4])
 
 # _________________________________________________________________________________________________
