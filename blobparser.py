@@ -3,6 +3,7 @@
 
 from datetime import datetime
 import json
+import sys 
 import pickle
 
 # _________________________________________________________________________________________________
@@ -95,8 +96,24 @@ def parse_human_blob(filename = None,
 # _________________________________________________________________________________________________
 
 if __name__ == '__main__':
+    delimiter = '-' * 40
+    
+    # Remember to modify start_timestamp and end_timestamp for each sequence
+    single1_ids, single1_list = parse_human_blob(filename = sys.args[1],
+                                                 start_timestamp = datetime(2017, 4, 28, 16, 01, 52, 0),
+                                                 end_timestamp = datetime(2017, 4, 28, 16, 07, 20, 0),
+                                                 human_count = int(sys.args[2]),
+                                                 pickled_file = sys.args[3])
 
+    print "start time: {}".format(single1_list[0][0])
+    print "end time:   {}".format(single1_list[-1][0])
+    print delimiter
 
+# _________________________________________________________________________________________________
+# Below is the original code for "__main__"
+
+'''
+if __name__ == '__main__':
     delimiter = '-' * 40
     blob_logs_directory = './blob_logs/'
     blob_pickled_directory = './blob_pickled/'
@@ -168,7 +185,20 @@ if __name__ == '__main__':
                                              pickled_file = blob_pickled_directory + 'dual_1_human_blobs')
 
     print "start time: {}".format(dual1_list[0][0])
-    print "end time:   {}".format(dual1_list[-1][0])
+    print "end time:   {}".format(dudelimiter = '-' * 40
+    blob_logs_directory = './blob_logs/'
+    blob_pickled_directory = './blob_pickled/'
+
+    single1_ids, single1_list = parse_human_blob(filename = blob_logs_directory + 'single_1.log',
+                                                 start_timestamp = datetime(2017, 4, 28, 16, 01, 52, 0),
+                                                 end_timestamp = datetime(2017, 4, 28, 16, 07, 20, 0),
+                                                 human_count = 1,
+                                                 pickled_file = blob_pickled_directory + 'single_1_human_blobs')
+
+    print "start time: {}".format(single1_list[0][0])
+    print "end time:   {}".format(single1_list[-1][0])
+    print delimiter
+al1_list[-1][0])
     print delimiter
 
     dual2_ids, dual2_list = parse_human_blob(filename = blob_logs_directory + 'dual_2.log',
@@ -190,5 +220,5 @@ if __name__ == '__main__':
     print "start time: {}".format(dual3_list[0][0])
     print "end time:   {}".format(dual3_list[-1][0])
     print delimiter
-
+'''
 # _________________________________________________________________________________________________

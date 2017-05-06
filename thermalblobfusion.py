@@ -3,6 +3,7 @@
 
 import pickle
 import random
+import sys
 
 # _________________________________________________________________________________________________
 
@@ -83,11 +84,8 @@ def thermal_fusion(blob_filename=None,
 if __name__ == '__main__':
 
     blob_list = thermal_fusion(
-        blob_filename='./blob_pickled/single_1_human_blobs.pickle',
-        thermal_filename='./thermal_pickled/single_1_thermal.pickle'
+        blob_filename = sys.args[1],
+        thermal_filename = sys.args[2]
     )
-
-    #for ts, blob in blob_list:
-    #    print '{} \t {}'.format(ts, blob['temperature'])
 
 # _________________________________________________________________________________________________
