@@ -61,8 +61,8 @@ def schedule_send(filename=None, blob_list=None):
 if __name__ == '__main__':
     schedule_send(
         blob_list = thermal_fusion(
-            blob_filename = sys.args[1],
-            thermal_filename = sys.args[2]
+            blob_filename = sys.argv[1],
+            thermal_filename = sys.argv[2]
         )
     )
 

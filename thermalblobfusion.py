@@ -84,8 +84,8 @@ def thermal_fusion(blob_filename=None,
 if __name__ == '__main__':
 
     blob_list = thermal_fusion(
-        blob_filename = sys.args[1],
-        thermal_filename = sys.args[2]
+        blob_filename = sys.argv[1],
+        thermal_filename = sys.argv[2]
     )
 
 # _________________________________________________________________________________________________

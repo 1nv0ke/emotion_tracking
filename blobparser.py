@@ -105,6 +105,7 @@ if __name__ == '__main__':
                                                  human_count = int(sys.args[2]),
                                                  pickled_file = sys.args[3])
 
+    print "blobID(s):  {}".format(single1_ids)
     print "start time: {}".format(single1_list[0][0])
     print "end time:   {}".format(single1_list[-1][0])
     print delimiter
